@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'counter.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -65,8 +65,8 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext context) {
-                  return const Counter();
-                }));
+                      return const Counter();
+                    }));
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: const Text("Counter"),
@@ -76,15 +76,15 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: Container(
         color: Colors.black,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: GNav(
               gap: 8,
               backgroundColor: Colors.black,
               color: Colors.white,
               activeColor: Colors.white,
-              tabBackgroundColor: Color.fromARGB(255, 47, 85, 104),
-              padding: EdgeInsets.all(12),
+              tabBackgroundColor: const Color.fromARGB(255, 47, 85, 104),
+              padding: const EdgeInsets.all(12),
               tabs: [
                 GButton(
                   icon: Icons.home,

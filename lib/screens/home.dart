@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:my_app/screens/todo.dart';
 import 'counter.dart';
+import 'feed.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,101 +12,49 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int currentIndex = 0;
+  final screens = [
+    const Feed(),
+    const Todo(),
+    const Counter(),
+    const Center(
+      child: Text(
+        "SETTINGS",
+        style: TextStyle(
+          fontSize: 50,
+        ),
+      ),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text("My App"),
-        backgroundColor: Colors.teal,
-        // shadowColor: Colors.transparent,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.teal,
-                ),
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.blueGrey,
-                ),
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.black,
-                ),
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.cyan,
-                ),
-                Container(
-                  width: 65,
-                  height: 100,
-                  color: Colors.orangeAccent,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 100, bottom: 100),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                      return const Counter();
-                    }));
-              },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              child: const Text("Counter"),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: GNav(
-              gap: 8,
-              backgroundColor: Colors.black,
-              color: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: const Color.fromARGB(255, 47, 85, 104),
-              padding: const EdgeInsets.all(12),
-              tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: "Home",
-                ),
-                GButton(
-                  icon: Icons.favorite_border,
-                  text: "Favorite",
-                ),
-                GButton(
-                  icon: Icons.search,
-                  text: "Search",
-                ),
-                GButton(
-                  icon: Icons.settings,
-                  text: "Settings",
-                ),
-              ]),
-        ),
-      ),
-    );
+        body: screens[currentIndex],
+        bottomNavigationBar: GNav(
+            selectedIndex: currentIndex,
+            onTabChange: (index) => {setState(() => currentIndex = index)},
+            gap: 6,
+            backgroundColor: Colors.black,
+            // color: Colors.white,
+            // padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                text: "Home",
+              ),
+              GButton(
+                icon: Icons.schedule,
+                text: "Todo",
+              ),
+              GButton(
+                icon: Icons.calculate,
+                text: "Counter",
+              ),
+              GButton(
+                icon: Icons.settings,
+                // text: "Settings",
+              ),
+            ]));
   }
 }

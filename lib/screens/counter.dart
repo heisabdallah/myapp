@@ -8,6 +8,7 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
+  List<int> things = [1, 2, 3, 5];
   int count = 0;
   String limit = "";
 
@@ -15,10 +16,12 @@ class _CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
-        title: const Text("Counter"),
-        backgroundColor: Colors.teal,
-        // shadowColor: Colors.transparent,
+        // centerTitle: false,
+        title: const Text(
+          "Counter",
+        ),
+        toolbarHeight: 40,
+        // backgroundColor: Color.fromARGB(255, 67, 38, 117),
       ),
       body: Center(
         child: Padding(
@@ -38,22 +41,33 @@ class _CounterState extends State<Counter> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  count = 0;
+                  limit = "";
+                });
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
+              child: const Text("Reset Count"),
+            )
           ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          count++;
           setState(() {
-            count++;
             if (count > 10) {
               setState(() {
-                limit = "Limmit reached";
-                count = 0;
+                limit = "Limit reached";
+                count = 10;
               });
             }
           });
         },
         backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
         child: const Icon(Icons.plus_one),
       ),
     );
